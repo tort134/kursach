@@ -42,10 +42,5 @@ class RegisterRequest extends FormRequest
     {
         throw new ApiException(422, 'Validation error', $validator->errors());
 
-//        throw new \Illuminate\Http\Exceptions\HttpResponseException(
-//            response()->json([
-//                'errors' => $validator->errors(),
-//            ], 422)
-//        );
     }
 }

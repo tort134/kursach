@@ -46,8 +46,11 @@ class UserController extends Controller
         if(!$user) throw new ApiException(422, 'Validation Error', ['Wrong email']);
 
         if(!Hash::check($request->password, $user->password)) throw new ApiException(422, 'Validation error', ['Wrong password']);
-        
-        $token= $user->createToken('barter')->plainTextToken;
+
+        $token = $user->createToken('barter')->plainTextToken;
+
+        $user->remember_token = $token;
+        $user->save();
 
         return [
             'data'=>[

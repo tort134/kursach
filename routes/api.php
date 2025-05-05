@@ -31,6 +31,8 @@ Route::middleware('auth.local')->group(function (){
         Route::delete('announcements/{announcement}', [AnnouncementController::class, 'deleteAnnouncement']);
         Route::patch('announcements/{announcement}', [AnnouncementController::class, 'updateAnnouncement']);
         Route::patch('announcements/rating/{announcement}', [AnnouncementController::class, 'ratingAnnouncement']);
+        Route::get('search', [AnnouncementController::class, 'searchAnnouncement']);
+        Route::get('filter', [AnnouncementController::class, 'filterAnnouncement']);
         Route::get('reviews', [ReviewController::class, 'showReview']);
         Route::post('reviews', [ReviewController::class, 'createReview']);
         Route::delete('reviews/{rewiew}', [ReviewController::class, 'deleteReview']);

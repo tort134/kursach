@@ -7,9 +7,10 @@ use App\Models\Announcement;
 use App\Models\Type;
 use http\Message;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 
-class AnnouncementController extends Controller
-{
+
+class AnnouncementController extends Controller{
     public function showAnnouncement(Request $request){
         $allAnn = Announcement::get();
 
@@ -102,5 +103,19 @@ class AnnouncementController extends Controller
                 'rating' => $ann->rating
             ]
         ];
+    }
+
+    public function searchAnnouncement(Request $request): JsonResponse{
+        $query = $request->get('query');
+        $ann = Announcement::where('title', 'LIKE', "%$query%")->get(['id', 'title', 'description', 'image', 'rating', 'type_id', 'user_id']);
+
+        return response()->json(["announcement" => $ann]);
+    }
+
+    public function filterAnnouncement(Request $request): JsonResponse{
+        $query = $request->get('query');
+        $ann = Announcement::where('type_id', 'LIKE', "%$query%")->get(['id', 'title', 'description', 'image', 'rating', 'type_id', 'user_id']);
+
+        return response()->json(["announcement" => $ann]);
     }
 }

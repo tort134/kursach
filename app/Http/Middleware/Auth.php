@@ -15,8 +15,7 @@ class Auth
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next): Response
-    {
+    public function handle(Request $request, Closure $next): Response{
         $user = User::where('remember_token', $request->bearerToken())->first();
 
         if(!$user) throw new ApiException(403, 'Login Failed');
